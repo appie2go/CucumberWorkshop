@@ -1,36 +1,36 @@
 ﻿using FluentAssertions;
 using TechTalk.SpecFlow;
 
-namespace VXCompany.Cucumber.Tests
+namespace Cucumber.Demo
 {
     [Binding]
-    public class SumBindings
+    public class SumBinding
     {
-        private Number _number;
-        private int _actualValue;
+        private NumberCollection _numbers;
+        private int _result;
 
-        [Given("^the number (\\d+)$")]
-        public void TheNumber(int number)
+        [Given("the number (.*)")]
+        public void Given(int number)
         {
-            _number = new Number(number);
+            _numbers = new NumberCollection(number);
         }
 
-        [Given("^we add (\\d+)$")]
+        [Given("we add (.*)")]
         public void WeAdd(int number)
         {
-            _number.Add(number);
+            _numbers.Add(number);
         }
 
-        [When("^calculating$")]
+        [When("calculating")]
         public void Calculating()
         {
-            _actualValue = _number.GetValue();
+            _result = _numbers.Sum();
         }
 
-        [Then("^the result should be (\\d+)$")]
-        public void TheResultShouldBe(int expectedValue) 
+        [Then("the result should be (.*)")]
+        public void ResultShouldBe(int number)
         {
-            _actualValue.Should().Be(expectedValue);
+            _result.Should().Be(number);
         }
     }
 }
